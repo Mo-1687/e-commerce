@@ -115,6 +115,8 @@ const Checkout = () => {
           setTimeout(() => {
             window.open(data.session.url);
           }, 1500);
+        } else {
+        fetchData()
         }
       } else {
         showMessage("Failed to place order, please try again", false);
