@@ -7,7 +7,6 @@ import {
   Clock,
   Truck,
   CheckCircle2,
-  XCircle,
   Eye,
   CreditCard,
   Banknote,
@@ -15,7 +14,6 @@ import {
   Phone,
   Loader2,
 } from "lucide-react";
-import { toast } from "sonner";
 import { OrdersAPI } from "@/API/Orders/Orders";
 import { Order } from "@/interface/orders/orders.type";
 import Image from "next/image";
@@ -33,10 +31,13 @@ const getStatusIcon = (status: string) => {
   switch (status) {
     case "delivered":
       return <CheckCircle2 className="h-4 w-4" />;
-  
+
+    case "shipped":
+      return <Truck className="h-4 w-4" />;
+
     case "processing":
       return <Clock className="h-4 w-4" />;
-   
+
     default:
       return <Package className="h-4 w-4" />;
   }
@@ -45,11 +46,13 @@ const getStatusIcon = (status: string) => {
 const getStatusColor = (status: string) => {
   switch (status) {
     case "delivered":
-      return "bg-emerald-100 text-emerald-800 border-emerald-200";
+      return "success";
+    case "shipped":
+      return "default";
     case "processing":
-      return "bg-amber-100 text-amber-800 border-amber-200";
+      return "warning";
     default:
-      return "bg-gray-100 text-gray-800 border-gray-200";
+      return "secondary";
   }
 };
 
@@ -61,7 +64,7 @@ const AllOrders = () => {
   const getUserOrders = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await OrdersAPI();      
+      const data = await OrdersAPI();
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -93,9 +96,9 @@ const AllOrders = () => {
       all: ordersWithStatus.length,
       processing: ordersWithStatus.filter((o) => o.status === "processing")
         .length,
+      shipped: ordersWithStatus.filter((o) => o.status === "shipped").length,
       delivered: ordersWithStatus.filter((o) => o.status === "delivered")
         .length,
-     
     }),
     [ordersWithStatus]
   );
@@ -158,7 +161,11 @@ const AllOrders = () => {
                 label: "Delivered",
                 count: orderCounts.delivered,
               },
-              
+              {
+                key: "shipped",
+                label: "Shipped",
+                count: orderCounts.shipped,
+              },
             ].map((tab) => (
               <button
                 key={tab.key}
