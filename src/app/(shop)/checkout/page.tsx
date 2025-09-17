@@ -33,8 +33,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { payCash, payVisa } from "@/API/Checkout/Checkout";
 import { countContext } from "@/CountProvider/CountProvider";
 import showMessage from "@/app/_Components/Toast/Toast";
+import { useRouter } from "next/navigation";
 
 const Checkout = () => {
+  const router = useRouter()
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState<CartItem | null>(null);
   const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -116,7 +118,7 @@ const Checkout = () => {
             window.open(data.session.url);
           }, 1500);
         } else {
-        fetchData()
+          router.push("/allorders")
         }
       } else {
         showMessage("Failed to place order, please try again", false);
