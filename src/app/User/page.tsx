@@ -26,9 +26,6 @@ export default function UserProfile() {
   const { data: session, update } = useSession();
   const [isEditing, setIsEditing] = useState(false);
 
- 
-  const [localPhone, setLocalPhone] = useState(localStorage.getItem("phone") || "");
-
   // Schema Validation
   const schema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -50,7 +47,7 @@ export default function UserProfile() {
     defaultValues: {
       name: session?.user?.name || "",
       email: session?.user?.email || "",
-      phone: localPhone || "",
+      phone: "",
     },
     resolver: zodResolver(schema),
   });
@@ -61,10 +58,10 @@ export default function UserProfile() {
       UserForm.reset({
         name: session.user.name || "",
         email: session.user.email || "",
-        phone: localPhone,
+        phone: "",
       });
     }
-  }, [session?.user, localPhone, UserForm]);
+  }, [session?.user, UserForm]);
 
   const formInputs = [
     { id: "name", type: "text", placeholder: "Enter your name", icon: User },
@@ -73,7 +70,6 @@ export default function UserProfile() {
   ];
 
   async function handleUpdate(values: z.infer<typeof schema>) {
-
     try {
       const data = await UpdateUser(values);
 
@@ -83,9 +79,6 @@ export default function UserProfile() {
           name: values.name,
           email: values.email,
         });
-
-        setLocalPhone(values.phone);
-        localStorage.setItem("phone", values.phone);
 
         showMessage("Account updated successfully", true);
         setIsEditing(false);
@@ -102,7 +95,7 @@ export default function UserProfile() {
     UserForm.reset({
       name: session?.user?.name || "",
       email: session?.user?.email || "",
-      phone: localPhone, // Reset to current local phone
+      phone: "", // Reset to current local phone
     });
     setIsEditing(false);
   };
@@ -149,7 +142,6 @@ export default function UserProfile() {
                                 htmlFor={input.id}
                                 className="capitalize flex items-center gap-2"
                               >
-                               
                                 {input.id}
                               </FormLabel>
                               <FormControl>
@@ -165,7 +157,6 @@ export default function UserProfile() {
                                 </div>
                               </FormControl>
                               <FormMessage />
-                             
                             </FormItem>
                           )}
                         />
@@ -222,19 +213,6 @@ export default function UserProfile() {
                       </div>
                       <div className="p-3 rounded-lg bg-muted/20 border border-border/20">
                         {session?.user?.email}
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <Phone className="h-4 w-4" />
-                        Phone Number
-                        <span className="text-xs text-muted-foreground">
-                          (Local only)
-                        </span>
-                      </div>
-                      <div className="p-3 rounded-lg bg-muted/20 border border-border/20">
-                        {localPhone || "No phone number set"}
                       </div>
                     </div>
                   </div>
