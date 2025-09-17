@@ -1,9 +1,15 @@
+"use server"
+
 import { ProductDetails } from "@/interface/productDetails.type";
 
 export default async function getProductDetails(id:string) {
-  const response = await fetch(
-    `https://ecommerce.routemisr.com/api/v1/products/${id}`
-  );
-  const data: ProductDetails = await response.json();
-  return data;
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/products/${id}`
+    );
+    const data: ProductDetails = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(`Failed to get product details: ${error instanceof Error ? error.message : "Unknown error"}`)
+  }
 }

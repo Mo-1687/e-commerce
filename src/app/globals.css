@@ -114,7 +114,8 @@
 
 /* Keyframe Animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -124,10 +125,12 @@
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 20px color-mix(in oklch, var(--color-accent) 20%, transparent);
+    box-shadow: 0 0 20px
+      color-mix(in oklch, var(--color-accent) 20%, transparent);
   }
   to {
-    box-shadow: 0 0 30px color-mix(in oklch, var(--color-accent) 60%, transparent);
+    box-shadow: 0 0 30px
+      color-mix(in oklch, var(--color-accent) 60%, transparent);
   }
 }
 
@@ -178,7 +181,11 @@
 }
 
 @utility gradient-primary {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
 }
 
 @utility gradient-hero {
@@ -221,14 +228,12 @@
 
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 
-    0 20px 25px -5px color-mix(in oklch, black 10%, transparent),
+  box-shadow: 0 20px 25px -5px color-mix(in oklch, black 10%, transparent),
     0 10px 10px -5px color-mix(in oklch, black 4%, transparent);
 }
 
 .dark .hover-lift:hover {
-  box-shadow: 
-    0 20px 25px -5px color-mix(in oklch, black 30%, transparent),
+  box-shadow: 0 20px 25px -5px color-mix(in oklch, black 30%, transparent),
     0 10px 10px -5px color-mix(in oklch, black 15%, transparent);
 }
 
@@ -289,6 +294,47 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Toast  */
+.toast-success,
+.toast-error {
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  padding: 14px 18px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.toast-success {
+  background-color: #e6f9f0 !important;
+  color: #0d6832 !important;
+  border: 1px solid #a8e6c5 !important;
+}
+
+.dark .toast-success {
+  background-color: #1a3c2c !important;
+  color: #b2f2bb !important;
+  border: 1px solid #2f6f4f !important;
+}
+
+.toast-error {
+  background-color: #ffecec !important;
+  color: #9d0b0b !important;
+  border: 1px solid #ffb3b3 !important;
+}
+
+.dark .toast-error {
+  background-color: #3c1a1a !important;
+  color: #ffb3b3 !important;
+  border: 1px solid #803232 !important;
+}
+
+.toast-success:hover,
+.toast-error:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
 /* Component Styles */
 .root-container {
   max-width: 1280px;
@@ -332,4 +378,241 @@ body {
 
 .dark .read-the-docs {
   color: oklch(65% 0 0);
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+  }
+}
+
+@keyframes float-error {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-10px) translateX(-5px);
+  }
+  66% {
+    transform: translateY(5px) translateX(5px);
+  }
+}
+
+@keyframes float-error-slow {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-15px) translateX(-10px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+.animate-slideDown {
+  animation: slideDown 0.6s ease-out forwards;
+}
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out forwards;
+  opacity: 0;
+}
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out forwards;
+  opacity: 0;
+}
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+.animate-expandIn {
+  animation: expandIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+.animate-float-error {
+  animation: float-error 3s ease-in-out infinite;
+}
+.animate-float-error-slow {
+  animation: float-error-slow 4s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 2s linear infinite;
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
 }

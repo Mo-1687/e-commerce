@@ -1,5 +1,4 @@
 import { Star, Truck, Shield, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,12 +8,23 @@ import getProductDetails from "@/API/getProductDetails/ProductDetails";
 import { ProductItem } from "@/interface/productDetails.type";
 import ImagesPreview from "@/app/_Components/ImagesPreview/ImagesPreview";
 import Link from "next/link";
+import getUserToken from "@/UserToken/getUserToken";
+import { getUserWishList } from "@/API/WishList/WishList";
+import { Product } from "@/interface/wishList/wishList.type";
 
 async function ProductDetails({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const data = await getProductDetails(id);
   const product: ProductItem = data.data;
+  const userData = await getUserToken();
+  const wishList: Product[] = await getUserWishList();
+  let isInWishList = false;
+
+  if (userData?.tokenApi) {
+    const whishListProducts = new Set(wishList.map((product) => product.id));
+    isInWishList = whishListProducts.has(product.id);
+  }
 
   const {
     title,
@@ -52,8 +62,10 @@ async function ProductDetails({ params }: { params: { id: string } }) {
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {/* Product Images */}
-          <ImagesPreview allImages={allImages} title={title} />
+          {/* Product Images with responsive wrapper */}
+          <div className="w-full max-w-lg mx-auto">
+            <ImagesPreview allImages={allImages} title={title} />
+          </div>
 
           {/* Product Info */}
           <div className="space-y-6">
@@ -96,7 +108,7 @@ async function ProductDetails({ params }: { params: { id: string } }) {
             {/* Price */}
             <div className="flex items-center gap-4">
               <span className="text-3xl font-bold text-primary">
-                {(price / 100).toFixed(2)} EGP
+                {price} EGP
               </span>
               <Badge variant="secondary">{sold} sold</Badge>
             </div>
@@ -125,8 +137,12 @@ async function ProductDetails({ params }: { params: { id: string } }) {
             {/*  Add to Cart */}
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <AddToCart />
-                <Favorite isHome={false} />
+                <AddToCart id={id} />
+                <Favorite
+                  isHome={false}
+                  productId={id}
+                  isInWishList={isInWishList}
+                />
               </div>
             </div>
 
@@ -176,7 +192,7 @@ async function ProductDetails({ params }: { params: { id: string } }) {
                   <h3 className="text-xl font-semibold mb-4">
                     Product Description
                   </h3>
-                  <div className="prose text-muted-foreground whitespace-pre-line">
+                  <div className="prose text-muted-foreground ">
                     {description}
                   </div>
                   <div className="mt-6">

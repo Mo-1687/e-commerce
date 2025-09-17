@@ -6,36 +6,34 @@ import HeroSlider from "./_Components/HeroSlider/HeroSlider";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Headphones, RotateCcw, Shield, Truck } from "lucide-react";
 import Image from "next/image";
+import { getUserWishList } from "@/API/WishList/WishList";
+import getUserToken from "@/UserToken/getUserToken";
+import { getCategory } from "@/API/Category/Category";
+import { Category } from "@/interface/Category/Category.type";
+import Link from "next/link";
 
 export default async function Home() {
-  const products: Product[] = await getProducts();
+  async function checkLogin() {
+    const userData = await getUserToken();
+    const token = userData?.tokenApi;
+    const products: Product[] = await getProducts(4);
+    if (token) {
+      const wishListData: Product[] = await getUserWishList();
+      const wishListProducts = new Set(
+        wishListData.map((product) => product.id)
+      );
 
-  const categories = [
-    {
-      name: "Electronics",
-      image:
-        "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=300&h=200&fit=crop",
-      itemCount: 1240,
-    },
-    {
-      name: "Fashion",
-      image:
-        "https://images.unsplash.com/photo-1445205170230-053b83016050?w=300&h=200&fit=crop",
-      itemCount: 856,
-    },
-    {
-      name: "Home & Living",
-      image:
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=300&h=200&fit=crop",
-      itemCount: 673,
-    },
-    {
-      name: "Sports",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=200&fit=crop",
-      itemCount: 492,
-    },
-  ];
+      const updatedProducts = products.map((product) => ({
+        ...product,
+        isInWishList: wishListProducts.has(product.id),
+      }));
+      return updatedProducts;
+    } else return products;
+  }
+
+  const products = await checkLogin();
+
+  const categories: Category[] = await getCategory(4);
 
   const features = [
     {
@@ -112,10 +110,10 @@ export default async function Home() {
             {categories.map((category, index) => (
               <Card
                 key={index}
-                className="overflow-hidden hover-lift border-0 bg-card/80 backdrop-blur-sm"
+                className="overflow-hidden p-0 hover-lift border-0 bg-card/80 backdrop-blur-sm"
               >
                 <CardContent className="p-0">
-                  <div className="relative h-56">
+                  <div className="relative aspect-square">
                     <Image
                       src={category.image}
                       alt={category.name}
@@ -125,9 +123,6 @@ export default async function Home() {
                     <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors" />
                     <div className="absolute bottom-4 left-4 text-white">
                       <h3 className="font-semibold text-lg">{category.name}</h3>
-                      <p className="text-sm text-white/80">
-                        {category.itemCount} items
-                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -140,7 +135,7 @@ export default async function Home() {
       {/* Featured Products */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex flex-col sm:flex-row gap-3 items-center justify-between mb-12">
             <div>
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">
                 Featured{" "}
@@ -152,10 +147,12 @@ export default async function Home() {
                 Handpicked items just for you
               </p>
             </div>
-            <Button variant="outline" className="hidden sm:flex">
-              View All
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link href="/products">
+              <Button  className="cursor-pointer">
+                View All
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

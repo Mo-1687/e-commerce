@@ -11,6 +11,7 @@ export interface Product {
   ratingsQuantity: number;
   _id: string;
   title: string;
+  isInWishList: boolean;
   slug: string;
   description: string;
   quantity: number;
