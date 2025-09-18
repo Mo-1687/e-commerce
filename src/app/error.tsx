@@ -47,7 +47,7 @@ useEffect(() => {
         {/* Error Message with Stagger Animation */}
         <div className="space-y-5 animate-slideUp">
           <h2 className="text-3xl font-bold text-foreground animate-bounce-gentle">
-            Oops! Something went wrong ${error.message}
+            Oops! Something went wrong ${error.cause}
           </h2>
           <p className="text-muted-foreground text-sm leading-relaxed animate-fadeIn">
             We encountered an unexpected error while loading this page.
