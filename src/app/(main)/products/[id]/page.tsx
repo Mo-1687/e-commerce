@@ -16,15 +16,17 @@ async function ProductDetails({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   const data = await getProductDetails(id);
-  if (!data) {
+
+  if(!data){
     return <div>Product not found</div>;
   }
-  const product: ProductItem = data.data;
+  
+  const product: ProductItem = data?.data;
   const userData = await getUserToken();
-  const wishList: Product[] = await getUserWishList();
   let isInWishList = false;
-
+  
   if (userData?.tokenApi) {
+    const wishList: Product[] = await getUserWishList();
     const whishListProducts = new Set(wishList.map((product) => product.id));
     isInWishList = whishListProducts.has(product.id);
   }
