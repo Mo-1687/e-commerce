@@ -11,7 +11,6 @@ interface ErrorPageProps {
 
 const Error: React.FC<ErrorPageProps> = ({ error, reset }) => {
 useEffect(() => {
-    // Log the error to an external service or analytics
     console.error(error);
 }, [error])  
 
@@ -48,7 +47,7 @@ useEffect(() => {
         {/* Error Message with Stagger Animation */}
         <div className="space-y-5 animate-slideUp">
           <h2 className="text-3xl font-bold text-foreground animate-bounce-gentle">
-            Oops! Something went wrong
+            Oops! Something went wrong ${error.message}
           </h2>
           <p className="text-muted-foreground text-sm leading-relaxed animate-fadeIn">
             We encountered an unexpected error while loading this page.
