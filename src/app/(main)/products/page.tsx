@@ -9,8 +9,7 @@ import ProductCard from "@/app/_Components/ProductCard/ProductCard";
 
 const Products = async () => {
   async function checkToken() {
-    try {
-      const userData = await getUserToken();
+    const userData = await getUserToken();
     const token = userData?.tokenApi;
     const products: Product[] = await getProducts(50);
     if (token) {
@@ -25,9 +24,6 @@ const Products = async () => {
       }));
       return updatedProducts;
     } else return products;
-    } catch (error) {
-      throw new Error(`Failed to get products: ${error instanceof Error ? error.message : "Unknown error"}`)
-    }
   }
 
   const products = await checkToken();
