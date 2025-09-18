@@ -12,8 +12,8 @@ import getUserToken from "@/UserToken/getUserToken";
 import { getUserWishList } from "@/API/WishList/WishList";
 import { Product } from "@/interface/wishList/wishList.type";
 
-async function ProductDetails({ params }: { params: { id: string } }) {
-  const { id } = params;
+async function ProductDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   const data = await getProductDetails(id);
   const product: ProductItem = data.data;

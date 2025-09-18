@@ -62,8 +62,8 @@ const Login = () => {
     {
       id: "password",
       type: showPassword ? "text" : "password",
-      placeholder: "Create password",
-      icon: showPassword ? EyeOff : Eye,
+      placeholder: "Enter your password",
+      icon: showPassword ? Eye : EyeOff,
     },
   ];
 
@@ -131,11 +131,9 @@ const Login = () => {
                                 className="absolute right-1.5 top-1/2 h-8 w-8 -translate-y-1/2 cursor-pointer text-muted-foreground p-0"
                                 onClick={() => handleShowPassword()}
                               >
-                                {showPassword ? (
-                                  <EyeOff className="h-4 w-4" />
-                                ) : (
-                                  <Eye className="h-4 w-4" />
-                                )}
+                              
+                                  <input.icon className="h-4 w-4" />
+                                
                               </Button>
                             ) : (
                               <input.icon className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />

@@ -75,13 +75,13 @@ const Signup = () => {
       id: "password",
       type: showPassword.password ? "text" : "password",
       placeholder: "Create password",
-      icon: showPassword.password ? EyeOff : Eye,
+      icon: showPassword.password ? Eye : EyeOff,
     },
     {
       id: "rePassword",
       type: showPassword.rePassword ? "text" : "password",
       placeholder: "Confirm password",
-      icon: showPassword.rePassword ? EyeOff : Eye,
+      icon: showPassword.rePassword ? Eye : EyeOff,
     },
     { id: "phone", type: "tel", placeholder: "Phone number", icon: Phone },
   ];
@@ -148,13 +148,7 @@ const Signup = () => {
                                   )
                                 }
                               >
-                                {showPassword[
-                                  input.id as keyof typeof showPassword
-                                ] ? (
-                                  <EyeOff className="h-4 w-4" />
-                                ) : (
-                                  <Eye className="h-4 w-4" />
-                                )}
+                                <input.icon className="h-4 w-4" />
                               </Button>
                             ) : (
                               <input.icon className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
