@@ -18,9 +18,9 @@ async function ProductDetails({ params }: { params: Promise<{ id: string }> }) {
   const data = await getProductDetails(id);
 
   if(!data){
-    return <div>Product not found</div>;
+    return <div className="min-h-screen bg-background flex items-center justify-center">Product not found</div>;
   }
-  
+
   const product: ProductItem = data?.data;
   const userData = await getUserToken();
   let isInWishList = false;
