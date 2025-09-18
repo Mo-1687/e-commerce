@@ -10,6 +10,7 @@ export default async function getProductDetails(id:string) {
     const data: ProductDetails = await response.json();
     return data;
   } catch (error) {
-    throw new Error(`Failed to get product details: ${error instanceof Error ? error.message : "Unknown error"}`)
+    console.log(error);
+    
   }
 }
