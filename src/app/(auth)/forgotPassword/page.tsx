@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import ForgotPasswordAPI from "@/API/ForgotPassword/ForgotPassword";
+import ForgotPasswordAPI from "@/API/Auth/ForgotPassword/ForgotPassword";
 import showMessage from "@/app/_Components/Toast/Toast";
 
 const ForgotPassword = () => {

@@ -24,7 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import ResetPasswordAPI from "@/API/ResetPassword/ResetPasswordApi";
+import ResetPasswordAPI from "@/API/Auth/ResetPassword/ResetPasswordApi";
 import showMessage from "@/app/_Components/Toast/Toast";
 
 const ResetPassword = () => {

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import handleSignup from "@/API/Regester/Regester";
+import handleSignup from "@/API/Auth/Regester/Regester";
 import { useRouter } from "next/navigation";
 import showMessage from "@/app/_Components/Toast/Toast";
 

@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import VerifyCodeAPI from "@/API/verifyCode/VerifyCode";
+import VerifyCodeAPI from "@/API/Auth/verifyCode/VerifyCode";
 import showMessage from "@/app/_Components/Toast/Toast";
 
 const ResetCode = () => {
