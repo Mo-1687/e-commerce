@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   else return NextResponse.redirect(new URL("/login", request.url));
 }
 
-// See "Matching Paths" below to learn more
+//   Paths 
 export const config = {
   matcher: ["/cart", "/wishList", "/allorders", "/checkout", "/user"],
 };

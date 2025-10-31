@@ -40,9 +40,9 @@ export default function RootLayout({
                 enableSystem
                 disableTransitionOnChange
               >
-              <Toaster position="top-center" visibleToasts={1} />
+                <Toaster position="top-center" visibleToasts={1} />
                 <Navbar />
-                <main className="min-h-screen p-8 bg-background antialiased">
+                <main className="min-h-screen p-4 lg:p-8 bg-background antialiased">
                   {children}
                 </main>
                 <Footer />

@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <Card className="product-card border-0 py-0 shadow-md bg-card/80 backdrop-blur-sm group h-full flex flex-col hover:shadow-xl transition-shadow duration-300">
       <CardContent className="!p-0 flex flex-col h-full">
         {/* Image Container - Responsive Aspect Ratio */}
-        <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square overflow-hidden rounded-t-lg p-0 flex-shrink-0">
+        <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square overflow-hidden rounded-t-lg p-0 flex-shrink-0 ">
           <Image
             src={imageCover}
             alt={title}
@@ -33,7 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
             loading="lazy"
           />
 
-          {/* Quick Actions - Responsive Positioning */}
+          {/* Quick Actions  */}
           <div
             className="absolute top-2 right-2 sm:top-3 sm:right-3 flex flex-col gap-1.5 sm:gap-2 transition-all duration-300 
                          opacity-100 sm:opacity-0 sm:translate-x-4 
@@ -59,7 +59,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </Link>
           </div>
 
-          {/* Add to Cart Button - Responsive Behavior */}
+          {/* Add to Cart Button  */}
           <div
             className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 
                          transition-all duration-300 
